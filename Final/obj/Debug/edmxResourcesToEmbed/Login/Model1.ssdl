@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SistemaMedicoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cita">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="NOTA" Type="varchar" MaxLength="100" />
+    <Property Name="FECHA" Type="date" Nullable="false" />
+    <Property Name="HORA" Type="time" Precision="7" Nullable="false" />
+    <Property Name="PACIENTE_ID" Type="int" />
+    <Property Name="SINTOMAS" Type="varchar" MaxLength="50" />
+    <Property Name="ENFERMEDAD" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="MEDICAMENTOS" Type="varchar" MaxLength="50" />
+    <Property Name="PRECIO" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="MEDICO_ID" Type="int" />
+    <Property Name="ESTADO_CITA" Type="int" />
+    <Property Name="PAGO_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="Estado_Cita">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Medico">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="APELLIDO" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CORREO" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="TELEFONO" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="DIRECCION" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CATEGORIA_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="Paciente">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="APELLIDO" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="TELEFONO" Type="numeric" Precision="20" Scale="0" Nullable="false" />
+    <Property Name="EMAIL" Type="varchar" MaxLength="30" />
+    <Property Name="DIRECCION" Type="varchar" MaxLength="50" />
+    <Property Name="CEDULA" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="ALERGIAS" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Pago">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE_USUARIO" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="APELLIDO" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CORREO" Type="varchar" MaxLength="30" />
+    <Property Name="CLAVE" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <Association Name="FK__Cita__ESTADO_CIT__5629CD9C">
+    <End Role="Estado_Cita" Type="Self.Estado_Cita" Multiplicity="0..1" />
+    <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estado_Cita">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cita">
+        <PropertyRef Name="ESTADO_CITA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cita__MEDICO_ID__5535A963">
+    <End Role="Medico" Type="Self.Medico" Multiplicity="0..1" />
+    <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medico">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cita">
+        <PropertyRef Name="MEDICO_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cita__PACIENTE_I__5441852A">
+    <End Role="Paciente" Type="Self.Paciente" Multiplicity="0..1" />
+    <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paciente">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cita">
+        <PropertyRef Name="PACIENTE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cita__PAGO_ID__571DF1D5">
+    <End Role="Pago" Type="Self.Pago" Multiplicity="0..1" />
+    <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pago">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cita">
+        <PropertyRef Name="PAGO_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Medico__CATEGORI__46E78A0C">
+    <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+    <End Role="Medico" Type="Self.Medico" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Medico">
+        <PropertyRef Name="CATEGORIA_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SistemaMedicoModelStoreContainer">
+    <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cita" EntityType="Self.Cita" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Estado_Cita" EntityType="Self.Estado_Cita" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Medico" EntityType="Self.Medico" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Paciente" EntityType="Self.Paciente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pago" EntityType="Self.Pago" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Cita__ESTADO_CIT__5629CD9C" Association="Self.FK__Cita__ESTADO_CIT__5629CD9C">
+      <End Role="Estado_Cita" EntitySet="Estado_Cita" />
+      <End Role="Cita" EntitySet="Cita" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cita__MEDICO_ID__5535A963" Association="Self.FK__Cita__MEDICO_ID__5535A963">
+      <End Role="Medico" EntitySet="Medico" />
+      <End Role="Cita" EntitySet="Cita" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cita__PACIENTE_I__5441852A" Association="Self.FK__Cita__PACIENTE_I__5441852A">
+      <End Role="Paciente" EntitySet="Paciente" />
+      <End Role="Cita" EntitySet="Cita" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cita__PAGO_ID__571DF1D5" Association="Self.FK__Cita__PAGO_ID__571DF1D5">
+      <End Role="Pago" EntitySet="Pago" />
+      <End Role="Cita" EntitySet="Cita" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Medico__CATEGORI__46E78A0C" Association="Self.FK__Medico__CATEGORI__46E78A0C">
+      <End Role="Categoria" EntitySet="Categoria" />
+      <End Role="Medico" EntitySet="Medico" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

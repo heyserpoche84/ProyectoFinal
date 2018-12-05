@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SistemaMedicoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOMBRE" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Medicos" Relationship="Self.FK__Medico__CATEGORI__46E78A0C" FromRole="Categoria" ToRole="Medico" />
+  </EntityType>
+  <EntityType Name="Cita">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NOTA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="HORA" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="PACIENTE_ID" Type="Int32" />
+    <Property Name="SINTOMAS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ENFERMEDAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MEDICAMENTOS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PRECIO" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="MEDICO_ID" Type="Int32" />
+    <Property Name="ESTADO_CITA" Type="Int32" />
+    <Property Name="PAGO_ID" Type="Int32" />
+    <NavigationProperty Name="Estado_Cita1" Relationship="Self.FK__Cita__ESTADO_CIT__5629CD9C" FromRole="Cita" ToRole="Estado_Cita" />
+    <NavigationProperty Name="Medico" Relationship="Self.FK__Cita__MEDICO_ID__5535A963" FromRole="Cita" ToRole="Medico" />
+    <NavigationProperty Name="Paciente" Relationship="Self.FK__Cita__PACIENTE_I__5441852A" FromRole="Cita" ToRole="Paciente" />
+    <NavigationProperty Name="Pago" Relationship="Self.FK__Cita__PAGO_ID__571DF1D5" FromRole="Cita" ToRole="Pago" />
+  </EntityType>
+  <EntityType Name="Estado_Cita">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOMBRE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Citas" Relationship="Self.FK__Cita__ESTADO_CIT__5629CD9C" FromRole="Estado_Cita" ToRole="Cita" />
+  </EntityType>
+  <EntityType Name="Medico">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOMBRE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="APELLIDO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CORREO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TELEFONO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DIRECCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CATEGORIA_ID" Type="Int32" />
+    <NavigationProperty Name="Categoria" Relationship="Self.FK__Medico__CATEGORI__46E78A0C" FromRole="Medico" ToRole="Categoria" />
+    <NavigationProperty Name="Citas" Relationship="Self.FK__Cita__MEDICO_ID__5535A963" FromRole="Medico" ToRole="Cita" />
+  </EntityType>
+  <EntityType Name="Paciente">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOMBRE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="APELLIDO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TELEFONO" Type="Decimal" Precision="20" Scale="0" Nullable="false" />
+    <Property Name="EMAIL" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="DIRECCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CEDULA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ALERGIAS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Citas" Relationship="Self.FK__Cita__PACIENTE_I__5441852A" FromRole="Paciente" ToRole="Cita" />
+  </EntityType>
+  <EntityType Name="Pago">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOMBRE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Citas" Relationship="Self.FK__Cita__PAGO_ID__571DF1D5" FromRole="Pago" ToRole="Cita" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOMBRE_USUARIO" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NOMBRE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="APELLIDO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CORREO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="CLAVE" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK__Medico__CATEGORI__46E78A0C">
+    <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+    <End Role="Medico" Type="Self.Medico" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Medico">
+        <PropertyRef Name="CATEGORIA_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cita__ESTADO_CIT__5629CD9C">
+    <End Role="Estado_Cita" Type="Self.Estado_Cita" Multiplicity="0..1" />
+    <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estado_Cita">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cita">
+        <PropertyRef Name="ESTADO_CITA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cita__MEDICO_ID__5535A963">
+    <End Role="Medico" Type="Self.Medico" Multiplicity="0..1" />
+    <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medico">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cita">
+        <PropertyRef Name="MEDICO_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cita__PACIENTE_I__5441852A">
+    <End Role="Paciente" Type="Self.Paciente" Multiplicity="0..1" />
+    <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paciente">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cita">
+        <PropertyRef Name="PACIENTE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cita__PAGO_ID__571DF1D5">
+    <End Role="Pago" Type="Self.Pago" Multiplicity="0..1" />
+    <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pago">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cita">
+        <PropertyRef Name="PAGO_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SistemaMedicoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categorias" EntityType="Self.Categoria" />
+    <EntitySet Name="Citas" EntityType="Self.Cita" />
+    <EntitySet Name="Estado_Cita" EntityType="Self.Estado_Cita" />
+    <EntitySet Name="Medicos" EntityType="Self.Medico" />
+    <EntitySet Name="Pacientes" EntityType="Self.Paciente" />
+    <EntitySet Name="Pagoes" EntityType="Self.Pago" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+    <AssociationSet Name="FK__Medico__CATEGORI__46E78A0C" Association="Self.FK__Medico__CATEGORI__46E78A0C">
+      <End Role="Categoria" EntitySet="Categorias" />
+      <End Role="Medico" EntitySet="Medicos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cita__ESTADO_CIT__5629CD9C" Association="Self.FK__Cita__ESTADO_CIT__5629CD9C">
+      <End Role="Estado_Cita" EntitySet="Estado_Cita" />
+      <End Role="Cita" EntitySet="Citas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cita__MEDICO_ID__5535A963" Association="Self.FK__Cita__MEDICO_ID__5535A963">
+      <End Role="Medico" EntitySet="Medicos" />
+      <End Role="Cita" EntitySet="Citas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cita__PACIENTE_I__5441852A" Association="Self.FK__Cita__PACIENTE_I__5441852A">
+      <End Role="Paciente" EntitySet="Pacientes" />
+      <End Role="Cita" EntitySet="Citas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cita__PAGO_ID__571DF1D5" Association="Self.FK__Cita__PAGO_ID__571DF1D5">
+      <End Role="Pago" EntitySet="Pagoes" />
+      <End Role="Cita" EntitySet="Citas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,99 @@
+﻿@model IEnumerable<FinalFinal.Login.Cita>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NOMBRE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NOTA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FECHA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HORA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SINTOMAS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ENFERMEDAD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MEDICAMENTOS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PRECIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado_Cita1.NOMBRE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Medico.NOMBRE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Paciente.NOMBRE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pago.NOMBRE)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NOTA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FECHA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HORA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SINTOMAS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ENFERMEDAD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MEDICAMENTOS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PRECIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado_Cita1.NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Medico.NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Paciente.NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pago.NOMBRE)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
